@@ -53,7 +53,9 @@ export default {
 <style scoped>
   .main-card_card {
     margin: 1rem;
+    min-width: 25vh;
   }
+
   .main-card_card_date {
     color: red;
     font-weight: normal;
@@ -63,6 +65,7 @@ export default {
   .main-card_temp {
     color: green;
   }
+
   .main-card_weather_header {
     display: flex;
     align-items: center;

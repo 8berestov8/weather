@@ -6,11 +6,13 @@ export default {
       weather: null,
       coords: null,
       daily: null,
+      history: []
     }
   },
   mutations: {
     setWeather(state, weather) {
       state.weather = weather
+      state.history.push(weather)
     },
     setCoords(state, coords) {
       state.coords = coords
@@ -75,6 +77,9 @@ export default {
     },
     daily(state) {
       return state.daily
+    },
+    history(state) {
+      return state.history
     }
   },
 }

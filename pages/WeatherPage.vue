@@ -11,13 +11,33 @@
 
 
     <div class="grid" v-if="daily">
-      <h2>Прогноз на 8 дней</h2>
+      <h2>
+        Прогноз на 8 дней
+        <btn
+          :type="['search-from_button','button-grey']"
+          v-if="history.length"
+          @change="isShow = !isShow"
+        >Показать историю
+        </btn>
+      </h2>
       <div class="grid-container">
         <weather-table
           v-for="item in daily.daily"
           :key="item.id"
           :item="item"
         ></weather-table>
+      </div>
+
+
+      <div class="history" v-if="history" v-show="isShow">
+        <h2>История просмотра</h2>
+
+        <div v-for="weather in history">
+          <weather-current
+            :key="weather.id"
+            :weather="weather">
+          </weather-current>
+        </div>
       </div>
 
     </div>
@@ -28,7 +48,9 @@
 
 export default {
   data() {
-    return {}
+    return {
+      isShow: false
+    }
   },
   computed: {
     weather() {
@@ -36,16 +58,23 @@ export default {
     },
     daily() {
       return this.$store.getters.daily
+    },
+    history() {
+      return this.$store.getters.history
     }
   },
   mounted() {
     this.$store.dispatch('determineGeolocation')
   },
-
 }
 </script>
 
 <style>
+  h2 {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .container {
     margin: 0 auto;
     max-width: 80%;
@@ -63,18 +92,23 @@ export default {
     align-items: flex-start;
     justify-content: space-between;
     width: 80%;
-    margin: 60px auto;
+    margin: 50px auto;
   }
 
   .grid {
     margin: auto;
     flex-direction: column;
-    display: flex;
   }
 
   .grid-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .history {
+    overflow: scroll;
+    display: flex;
+    padding: 1rem;
   }
 </style>

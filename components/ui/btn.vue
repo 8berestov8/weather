@@ -1,5 +1,5 @@
 <template>
-  <button :class="type">
+  <button :class="type" @click="$emit('change')">
     <slot/>
   </button>
 </template>
@@ -7,6 +7,7 @@
 <script>
 export default {
   name: 'btn',
+  emits: ['change'],
   props: {
     type: {
       type: Array,
